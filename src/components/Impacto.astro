@@ -1,0 +1,66 @@
+---
+/**
+ * IMPACTO — Custom component (doesn't exist in any template)
+ * Animated counter grid showing the SCALE of Manuel's work.
+ * 6 big metrics with labels and context.
+ */
+import { siteConfig } from "../config";
+---
+
+<section id="impacto" class="py-16 md:py-24" style="background-color: var(--sand)">
+  <div class="max-w-5xl mx-auto px-6 lg:px-8">
+
+    <!-- Header -->
+    <div class="reveal-left mb-12">
+      <h2
+        class="text-3xl md:text-4xl font-bold"
+        style="color: var(--earth-dark)"
+      >
+        Impacto
+      </h2>
+      <div class="w-16 h-1 mt-3 rounded-full" style="background-color: var(--green)"></div>
+    </div>
+
+    <!-- Counter grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
+      {siteConfig.impacto.map((metric, i) => (
+        <div
+          class={`impact-card stagger-${i + 1} p-6 rounded-2xl text-center`}
+          style="background-color: var(--sand-light); border: 1px solid rgba(160, 128, 96, 0.15)"
+        >
+          <!-- Big number -->
+          <div class="flex items-baseline justify-center gap-1">
+            <span
+              class="text-3xl md:text-4xl lg:text-5xl font-bold"
+              style="color: var(--green); font-family: 'Libre Baskerville', serif"
+              data-counter={metric.value}
+            >
+              {metric.value}
+            </span>
+            {metric.suffix && (
+              <span
+                class="text-lg md:text-xl font-medium"
+                style="color: var(--green)"
+              >
+                {metric.suffix}
+              </span>
+            )}
+          </div>
+
+          <!-- Label -->
+          <p
+            class="mt-2 text-sm md:text-base font-semibold"
+            style="color: var(--earth-dark)"
+          >
+            {metric.label}
+          </p>
+
+          <!-- Detail -->
+          <p class="mt-1 text-xs md:text-sm" style="color: var(--earth-light)">
+            {metric.detail}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

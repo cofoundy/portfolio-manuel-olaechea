@@ -1,0 +1,86 @@
+---
+/**
+ * NAV — Minimal sticky top bar
+ * NOT a floating pill. Simple, clean, earthy.
+ */
+const links = [
+  { href: "#legado", label: "Legado" },
+  { href: "#impacto", label: "Impacto" },
+  { href: "#proyectos", label: "Proyectos" },
+  { href: "#trayectoria", label: "Trayectoria" },
+  { href: "#contacto", label: "Contacto" },
+];
+---
+
+<nav
+  class="nav-animate fixed top-0 left-0 right-0 z-50"
+  style="background-color: rgba(42, 31, 20, 0.95); backdrop-filter: blur(8px)"
+  id="main-nav"
+>
+  <div class="max-w-5xl mx-auto px-6 flex items-center justify-between h-12">
+    <!-- Logo/Name -->
+    <a
+      href="#hero"
+      class="text-sm font-bold tracking-wide"
+      style="color: var(--sand); font-family: 'Libre Baskerville', serif"
+    >
+      MO
+    </a>
+
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-6">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="text-xs uppercase tracking-wider font-medium"
+          style="color: var(--earth-light)"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden flex flex-col gap-1 p-1"
+      aria-label="Menu"
+    >
+      <span class="w-5 h-0.5 rounded-full" style="background-color: var(--sand)"></span>
+      <span class="w-5 h-0.5 rounded-full" style="background-color: var(--sand)"></span>
+      <span class="w-3 h-0.5 rounded-full" style="background-color: var(--sand)"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden"
+    style="background-color: rgba(42, 31, 20, 0.98)"
+  >
+    <div class="px-6 py-4 space-y-3">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="mobile-link block text-sm uppercase tracking-wider font-medium py-1"
+          style="color: var(--earth-light)"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+    });
+  });
+</script>

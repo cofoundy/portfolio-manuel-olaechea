@@ -1,0 +1,139 @@
+---
+/**
+ * LEGADO — Custom component (doesn't exist in any template)
+ * Geographic journey map + personal narrative + oficios badges
+ * Tells Manuel's story: ICA → ESPAÑA → SUIZA → ICA
+ */
+import { siteConfig } from "../config";
+const { legado } = siteConfig;
+const paragraphs = legado.narrative.split("\n\n");
+---
+
+<section id="legado" class="py-16 md:py-24" style="background-color: var(--earth-dark)">
+  <div class="max-w-5xl mx-auto px-6 lg:px-8">
+
+    <!-- Header -->
+    <div class="reveal mb-12">
+      <h2
+        class="text-3xl md:text-4xl font-bold"
+        style="color: var(--sand)"
+      >
+        El Legado
+      </h2>
+      <p class="mt-3 text-lg" style="color: var(--earth-light)">
+        {legado.subtitle}
+      </p>
+    </div>
+
+    <!-- ═══ GEOGRAPHIC JOURNEY MAP ═══ -->
+    <!-- Desktop: horizontal path with dots -->
+    <div class="reveal stagger-1 hidden md:block mb-14">
+      <div class="relative">
+        <!-- Connecting line -->
+        <div
+          class="absolute top-5 left-[12.5%] right-[12.5%] h-px journey-line"
+          style="background-color: var(--earth-light)"
+        ></div>
+
+        <!-- Journey stops -->
+        <div class="grid grid-cols-4 relative">
+          {legado.journey.map((stop, i) => (
+            <div class="journey-dot flex flex-col items-center text-center px-2">
+              <!-- Dot -->
+              <div
+                class="w-10 h-10 rounded-full flex items-center justify-center z-10 text-lg"
+                style={`background-color: ${i === legado.journey.length - 1 ? 'var(--green)' : 'var(--earth-light)'}; color: white`}
+              >
+                {stop.flag}
+              </div>
+              <!-- Place name -->
+              <h3
+                class="mt-3 text-lg font-bold"
+                style="color: var(--sand)"
+              >
+                {stop.place}
+              </h3>
+              <!-- Period -->
+              <span
+                class="text-xs mt-1 px-2 py-0.5 rounded-full"
+                style="background-color: rgba(160, 128, 96, 0.2); color: var(--earth-light)"
+              >
+                {stop.period}
+              </span>
+              <!-- Detail -->
+              <p class="mt-2 text-sm leading-relaxed" style="color: rgba(247, 242, 234, 0.7)">
+                {stop.detail}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile: vertical journey -->
+    <div class="reveal stagger-1 md:hidden mb-10">
+      <div class="relative pl-8">
+        <!-- Vertical line -->
+        <div
+          class="absolute top-0 bottom-0 left-4 w-px"
+          style="background-color: var(--earth-light)"
+        ></div>
+
+        {legado.journey.map((stop, i) => (
+          <div class="relative mb-8 last:mb-0">
+            <!-- Dot -->
+            <div
+              class="absolute -left-4 top-0 w-8 h-8 rounded-full flex items-center justify-center text-sm z-10"
+              style={`background-color: ${i === legado.journey.length - 1 ? 'var(--green)' : 'var(--earth-light)'}`}
+            >
+              {stop.flag}
+            </div>
+            <div class="ml-4">
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold" style="color: var(--sand)">{stop.place}</h3>
+                <span
+                  class="text-xs px-2 py-0.5 rounded-full"
+                  style="background-color: rgba(160, 128, 96, 0.2); color: var(--earth-light)"
+                >
+                  {stop.period}
+                </span>
+              </div>
+              <p class="mt-1 text-sm" style="color: rgba(247, 242, 234, 0.7)">
+                {stop.detail}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ═══ NARRATIVE ═══ -->
+    <div class="reveal stagger-2 max-w-3xl">
+      {paragraphs.map((p) => (
+        <p
+          class="text-base md:text-lg leading-relaxed mb-4 last:mb-0"
+          style="color: rgba(247, 242, 234, 0.85)"
+        >
+          {p}
+        </p>
+      ))}
+    </div>
+
+    <!-- ═══ OFICIOS (jobs he worked — badge of honor) ═══ -->
+    <div class="reveal stagger-3 mt-10">
+      <p class="text-sm font-medium mb-3 uppercase tracking-wider" style="color: var(--earth-light)">
+        Lo que aprend\u00ed en el camino
+      </p>
+      <div class="flex flex-wrap gap-2">
+        {legado.oficios.map((oficio) => (
+          <span
+            class="oficio-tag text-sm px-3 py-1.5 rounded-full cursor-default"
+            style="background-color: rgba(74, 124, 52, 0.15); color: var(--green); border: 1px solid rgba(74, 124, 52, 0.3)"
+          >
+            {oficio}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
